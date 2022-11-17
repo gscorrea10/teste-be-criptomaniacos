@@ -11,6 +11,7 @@ class UsersRepository {
         email,
         cpf,
         phone,
+        updatedAt: null,
       },
     });
     return user;
