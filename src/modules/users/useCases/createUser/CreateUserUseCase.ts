@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 import { IUsersRepository } from '../../../../modules/users/repositories/IUsersRepository';
-import { ICreateUserDTO } from '../../../../modules/users/dtos/CreateUserDTO';
+import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { AppError } from '../../../../shared/errors/AppError';
 
 @injectable()
