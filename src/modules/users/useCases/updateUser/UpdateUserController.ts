@@ -7,7 +7,12 @@ class UpdateUserController {
     const { id } = request.params;
     const { name, cpf, email, phone } = request.body;
     const updateUserUseCase = container.resolve(UpdateUserUseCase);
-    const result = await updateUserUseCase.execute(id, { name, cpf, email, phone });
+    const result = await updateUserUseCase.execute(id, {
+      name,
+      cpf,
+      email,
+      phone,
+    });
 
     return response.status(200).json(result);
   }

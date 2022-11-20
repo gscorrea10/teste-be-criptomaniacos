@@ -4,7 +4,13 @@ import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { IUpdateUserDTO } from '../../dtos/IUpdateUserDTO';
 
 class UsersRepository {
-  async create({ id, name, email, cpf, phone }: ICreateUserDTO): Promise<Users> {
+  async create({
+    id,
+    name,
+    email,
+    cpf,
+    phone,
+  }: ICreateUserDTO): Promise<Users> {
     const user = await prisma.users.create({
       data: {
         id,
@@ -47,6 +53,16 @@ class UsersRepository {
     const user = await prisma.users.findUnique({
       where: {
         email,
+      },
+      include: {
+        wallets: {
+          select: {
+            name_wallet: true,
+            balance: true,
+            createdAt: true,
+            coins: true,
+          },
+        },
       },
     });
     return user;

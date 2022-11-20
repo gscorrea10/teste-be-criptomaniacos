@@ -13,7 +13,8 @@ interface IRequest {
 @injectable()
 class CreateWalletUseCase {
   constructor(
-    @inject('WalletsRepository') private walletsRepository: IWalletsRepository,
+    @inject('WalletsRepository')
+    private walletsRepository: IWalletsRepository,
     @inject('UsersRepository') private usersRepository: IUsersRepository,
   ) {}
   async execute(data: IRequest): Promise<Wallets> {

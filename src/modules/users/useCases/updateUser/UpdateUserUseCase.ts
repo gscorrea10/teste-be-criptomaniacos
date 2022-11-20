@@ -12,7 +12,9 @@ interface IRequest {
 
 @injectable()
 class UpdateUserUseCase {
-  constructor(@inject('UsersRepository') private usersRepository: IUsersRepository) {}
+  constructor(
+    @inject('UsersRepository') private usersRepository: IUsersRepository,
+  ) {}
 
   async execute(id: string, data: IRequest): Promise<Users> {
     const user = await this.usersRepository.findById(id);
