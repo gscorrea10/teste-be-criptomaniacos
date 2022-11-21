@@ -60,7 +60,18 @@ class UsersRepository {
             name_wallet: true,
             balance: true,
             createdAt: true,
-            coins: true,
+            coins: {
+              select: {
+                Coins: {
+                  select: {
+                    name: true,
+                    price: true,
+                    coin_amount: true,
+                    id: true,
+                  },
+                },
+              },
+            },
           },
         },
       },

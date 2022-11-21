@@ -1,7 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import { IWalletsRepository } from '../../repositories/IWalletsRepository';
 import { IUsersRepository } from '../../../users/repositories/IUsersRepository';
-import { ICreateWalletDTO } from '../../dtos/ICreateWalletDTO';
 import { AppError } from '../../../../shared/errors/AppError';
 import { Wallets } from '@prisma/client';
 
@@ -19,12 +18,12 @@ class CreateWalletUseCase {
   ) {}
   async execute(data: IRequest): Promise<Wallets> {
     if (!data.email || !data.name_wallet) {
-      throw new AppError('Name Wallet or Email empty');
+      throw new AppError('Name of Wallet or Email is empty');
     }
 
     const user = await this.usersRepository.findByEmail(data.email);
     if (!user) {
-      throw new AppError('Email doest not exist');
+      throw new AppError('Email does not exist');
     }
 
     const wallet = await this.walletsRepository.create(data);
