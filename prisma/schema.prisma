@@ -27,7 +27,6 @@ model Wallets {
   id          String           @id @unique @default(uuid())
   usersId     String
   name_wallet String           @unique
-  balance     Float?
   createdAt   DateTime         @default(now())
   updatedAt   DateTime?        @updatedAt
   coins       CoinsOnWallets[]
@@ -38,13 +37,14 @@ model Wallets {
 }
 
 model Coins {
-  id          String           @id @unique @default(uuid())
-  name        String
-  price       Float
-  coin_amount Int
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime?        @updatedAt
-  wallets     CoinsOnWallets[]
+  id             String           @id @unique @default(uuid())
+  name           String
+  price          Float
+  coin_amount    Int
+  total_purchase Float?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime?        @updatedAt
+  wallets        CoinsOnWallets[]
 
   @@map("coins")
 }
