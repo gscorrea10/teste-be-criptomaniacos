@@ -1,0 +1,696 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Criptomaniacos",
+    "description": "Teste técnico para a vaga de Back-end",
+    "termsOfService": "http://localhost:8080/terms",
+    "contact": {
+      "email": "gscorrea95@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a user",
+        "description": "Create a user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "cpf": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "meu nome",
+                  "email": "sample@gmail.com",
+                  "cpf": "123446",
+                  "phone": "12122121"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "Date"
+                    },
+                    "updatedAt": {
+                      "type": "Date"
+                    }
+                  },
+                  "example": {
+                    "id": "usersId",
+                    "name": "meu nome",
+                    "email": "sample@gmail.com",
+                    "cpf": "123446",
+                    "phone": "12122121",
+                    "createdAt": "2022-11-23T02:22:16.746Z",
+                    "updatedAt": null
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email or CPF already exist in the db"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "description": "List all users",
+        "responses": {
+          "200": {
+            "description": "List of all users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "cpf": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "Date"
+                      },
+                      "updatedAt": {
+                        "type": "Date"
+                      },
+                      "wallets": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "usersId": {
+                              "type": "string"
+                            },
+                            "name_wallet": {
+                              "type": "string"
+                            },
+                            "createdAt": {
+                              "type": "Date"
+                            },
+                            "updatedAt": {
+                              "type": "Date"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "id": "usersId",
+                    "name": "meu nome",
+                    "email": "sample@gmail.com",
+                    "cpf": "123446",
+                    "phone": "12122121",
+                    "createdAt": "2022-11-23T02:22:16.746Z",
+                    "updatedAt": null,
+                    "wallets": [
+                      {
+                        "id": "walletsId",
+                        "usersId": "usersId",
+                        "name_wallet": "sample name",
+                        "createdAt": "2022-11-23T02:22:16.746Z",
+                        "updatedAt": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update user infos",
+        "description": "Update user infos",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "cpf": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "id": "usersId",
+                  "name": "meu nome",
+                  "email": "sample@gmail.com",
+                  "cpf": "123446",
+                  "phone": "12122121",
+                  "createdAt": "2022-11-23T02:22:16.746Z",
+                  "updatedAt": null
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User war updated"
+          },
+          "400": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/byemail": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by email",
+        "description": "Get user by email",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "sample@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User was found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "Date"
+                    },
+                    "updatedAt": {
+                      "type": "Date"
+                    },
+                    "wallets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name_wallet": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "Date"
+                          },
+                          "coins": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "price": {
+                                  "type": "number"
+                                },
+                                "coin_amount": {
+                                  "type": "number"
+                                },
+                                "total_purchase": {
+                                  "type": "number"
+                                },
+                                "id": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "usersId",
+                      "name": "meu nome",
+                      "email": "sample@gmail.com",
+                      "cpf": "123446",
+                      "phone": "12122121",
+                      "createdAt": "2022-11-23T02:22:16.746Z",
+                      "updatedAt": null,
+                      "wallets": [
+                        {
+                          "name_wallet": "sample name",
+                          "createdAt": "2022-11-23T02:22:16.746Z",
+                          "coins": [
+                            {
+                              "name": "BTC",
+                              "price": 434.77,
+                              "coin_amount": 2,
+                              "total_purchase": 869.54,
+                              "id": "2ff9904e-9869-4eff-9c77-1f0102f4aada"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/:id": {
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete user",
+        "description": "Delete user",
+        "response": {
+          "204": {
+            "description": "User deleted successfully"
+          },
+          "400": {
+            "description": "User does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/wallet": {
+      "post": {
+        "tags": ["Wallets"],
+        "summary": "Create a new wallet",
+        "description": "Create wallet",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name_wallet": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name_wallet": "wallet",
+                  "email": "sample@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Wallet created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "usersId": {
+                      "type": "string"
+                    },
+                    "name_wallet": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "Date"
+                    },
+                    "updatedAt": {
+                      "type": "Date"
+                    },
+                    "users": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "cpf": {
+                          "type": "string"
+                        },
+                        "phone": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "id": "b06c71ec-98fc-4f7d-8ca9-556cb6c896f0",
+                    "usersId": "d267f81a-003b-4d3e-b26e-9a63a3415af1",
+                    "name_wallet": "outra",
+                    "createdAt": "2022-11-23T02:25:36.520Z",
+                    "updatedAt": null,
+                    "Users": {
+                      "name": "another",
+                      "email": "another@gmail.com",
+                      "cpf": "12131212",
+                      "phone": "1234567"
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Email does not exist"
+              },
+              "500": {
+                "description": "Internal Server Error"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wallet/byname": {
+      "get": {
+        "tags": ["Wallets"],
+        "summary": "List a specific wallet by your name",
+        "description": "List a specific wallet by your name",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name_wallet": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name_wallet": "wallet name"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Wallet was found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "usersId": {
+                      "type": "string"
+                    },
+                    "name_wallet": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "Date"
+                    },
+                    "updatedAt": {
+                      "type": "Date"
+                    },
+                    "coins": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "price": {
+                            "type": "number"
+                          },
+                          "coin_amount": {
+                            "type": "number"
+                          },
+                          "total_purchase": {
+                            "type": "number"
+                          },
+                          "id": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "id": "b0bbd4d2-9e64-483d-abda-42358cb1b73c",
+                    "usersId": "d267f81a-003b-4d3e-b26e-9a63a3415af1",
+                    "name_wallet": "final",
+                    "createdAt": "2022-11-23T02:23:05.853Z",
+                    "updatedAt": null,
+                    "coins": [
+                      {
+                        "Coins": {
+                          "name": "BTC",
+                          "price": 212.2,
+                          "coin_amount": 7,
+                          "total_purchase": 1485.4,
+                          "id": "08c1d90b-6a96-4242-9b92-5cd59da09e13"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Wallet does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/coin": {
+      "post": {
+        "tags": ["Coins"],
+        "summary": "Create a new coin",
+        "description": "Create a new coin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "coin_amount": {
+                    "type": "number"
+                  },
+                  "name_wallet": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "BTC",
+                  "price": 21,
+                  "coin_amount": 2,
+                  "name_wallet": "wallet name"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Coin was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "price": {
+                      "type": "number"
+                    },
+                    "coin_amount": {
+                      "type": "number"
+                    },
+                    "total_purchase": {
+                      "type": "number"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "Date"
+                    },
+                    "updatedAt": {
+                      "type": "Date"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "2ff9904e-9869-4eff-9c77-1f0102f4aada",
+                  "name": "BTC",
+                  "price": "434.77 USD",
+                  "coin_amount": 2,
+                  "total_purchase": "869.54 USD",
+                  "createdAt": "2022-11-23T02:27:55.456Z",
+                  "updatedAt": null
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Wallet does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/coin/purchaseBycoin": {
+      "get": {
+        "tags": ["Coins"],
+        "summary": "Shows number of coins purchased per wallet and total spent by each coin",
+        "description": "Shows number of coins purchased per wallet and total spent by each coin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name_wallet": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Total spent by each coin"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
