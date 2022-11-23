@@ -10,6 +10,16 @@ interface IRequest {
   phone: string;
 }
 
+interface IResponse {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 @injectable()
 class UpdateUserUseCase {
   constructor(
@@ -22,14 +32,19 @@ class UpdateUserUseCase {
       throw new AppError('User not found');
     }
 
-    user.cpf = data.cpf;
-    user.email = data.email;
-    user.name = data.name;
-    user.phone = data.phone;
-    user.updatedAt = new Date();
-    await this.usersRepository.update(user);
+    const response: IResponse = {
+      id: user.id,
+      name: data.name,
+      email: data.email,
+      cpf: data.cpf,
+      phone: data.phone,
+      createdAt: user.createdAt,
+      updatedAt: new Date(),
+    };
 
-    return user;
+    await this.usersRepository.update(response);
+
+    return response;
   }
 }
 

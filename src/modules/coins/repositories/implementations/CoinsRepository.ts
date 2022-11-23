@@ -9,6 +9,7 @@ class CoinsRepository {
         name: coins.name,
         price: coins.price,
         coin_amount: coins.coin_amount,
+        total_purchase: coins.total_pruchase,
         updatedAt: null,
         wallets: {
           create: {
@@ -21,6 +22,31 @@ class CoinsRepository {
         },
       },
     });
+    return coin;
+  }
+
+  async purchaseByCoin(name: string, name_wallet: string) {
+    const coin = await prisma.coins.groupBy({
+      by: ['name'],
+      where: {
+        name: {
+          contains: name,
+        },
+        wallets: {
+          some: {
+            Wallets: {
+              name_wallet: name_wallet,
+            },
+          },
+        },
+      },
+      _sum: {
+        total_purchase: true,
+        coin_amount: true,
+      },
+      _count: true,
+    });
+
     return coin;
   }
 }

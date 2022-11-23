@@ -7,7 +7,6 @@ class WalletsRepository {
     const wallet = await prisma.wallets.create({
       data: {
         name_wallet: wallets.name_wallet,
-        balance: 0,
         updatedAt: null,
         Users: {
           connect: {
@@ -16,7 +15,14 @@ class WalletsRepository {
         },
       },
       include: {
-        Users: true,
+        Users: {
+          select: {
+            name: true,
+            email: true,
+            cpf: true,
+            phone: true,
+          },
+        },
       },
     });
     return wallet;
@@ -35,6 +41,7 @@ class WalletsRepository {
                 name: true,
                 price: true,
                 coin_amount: true,
+                total_purchase: true,
                 id: true,
               },
             },

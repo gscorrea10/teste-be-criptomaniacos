@@ -58,7 +58,6 @@ class UsersRepository {
         wallets: {
           select: {
             name_wallet: true,
-            balance: true,
             createdAt: true,
             coins: {
               select: {
@@ -67,6 +66,7 @@ class UsersRepository {
                     name: true,
                     price: true,
                     coin_amount: true,
+                    total_purchase: true,
                     id: true,
                   },
                 },
