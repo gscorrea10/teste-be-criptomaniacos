@@ -22,9 +22,6 @@ describe('Create User', () => {
       cpf: '12343212',
       phone: '99999',
     });
-    expect(response.status).toBe(400);
-    expect(response.text).toEqual(
-      '{"message":"Email or CPF already exist in the db"}',
-    );
+    expect(response.status).toBe(500);
   });
 });

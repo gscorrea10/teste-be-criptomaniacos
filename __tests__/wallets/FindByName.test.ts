@@ -12,9 +12,7 @@ describe('Find Wallet by Name', () => {
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
       name_wallet: 'test_wallet',
-      createdAt: '2022-11-23T13:27:10.840Z',
       updatedAt: null,
-      coins: [{}],
     });
   });
 

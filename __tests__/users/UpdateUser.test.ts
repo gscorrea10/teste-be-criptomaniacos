@@ -3,6 +3,8 @@ import request from 'supertest';
 import 'reflect-metadata';
 import { app } from '../../src/app';
 
+// buscar o id do usuario no banco para testar
+
 describe('Update User', () => {
   it('should be able to update a user', async () => {
     const response = await request(app)
