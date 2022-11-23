@@ -14,6 +14,10 @@ class CreateUserUseCase {
       throw new AppError('Blank field');
     }
 
+    if (email || cpf) {
+      throw new AppError('Email or CPF already exist in the db');
+    }
+
     const user = await this.usersRepository.create({
       name,
       email,
