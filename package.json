@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules ./src/server.ts",
     "test": "jest --detectOpenHandles --verbose",
-    "build": "tsc"
+    "build": "tsc && cpx",
+    "start": "node dist/src/server.js"
   },
   "keywords": [],
   "author": "gscorrea10 <gscorrea95@gmail.com>",
